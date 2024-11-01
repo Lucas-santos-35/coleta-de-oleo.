@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fcfcfc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
+            background-color: rgb(223, 223, 228);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .icon-options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .icon {
+            font-size: 50px;
+            color: #007bff;
+        }
+        .schedule, .clients {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        select, input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <!-- Certifique-se de incluir a biblioteca Font Awesome para os ícones -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="icon-options">
+            <div class="icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="icon">
+                <i class="fas fa-users"></i>
+            </div>
+        </div>
+        <h1>Agendamentos</h1>
+        <div class="schedule">
+            <form action="confirmacao.php" method="post">
+                <label for="servico">Tipo de Serviço:</label>
+                <select id="servico" name="servico">
+                    <option value="reciclagem">Reciclagem e Rerrefino</option>
+                    <option value="descarte">Descarte Consciente</option>
+                    <option value="estudo">Estudo Científico</option>
+                </select>
+                <label for="parceiros">Parceiros:</label>
+                <select id="parceiros" name="parceiros">
+                    <option value="cd_motos">CD Motos</option>
+                    <option value="du_motos">DU Motos</option>
+                    <option value="andradas_motos">Andradas Motos</option>
+                    <option value="anao_motos">Anão Motos</option>
+                    <option value="floresta_motos">Floresta Motos</option>
+                    <option value="joao_motos">João Motos</option>
+                    <option value="jequitinhonha_motos">Jequitinhonha Motos</option>
+                </select>
+                <input type="submit" value="Agendar">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

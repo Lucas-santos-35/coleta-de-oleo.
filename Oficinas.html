@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Oficina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a4a0a0; /* Cor de fundo cinza */
+            background-image: url('C:/xampp/htdocs/Desenvolvimento-sustentavel/sustentabilidade.png'); /* Substitua pelo caminho da sua imagem */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 1200%;
+            max-width: 900px; /* Diminuí o tamanho máximo */
+            background-color: rgba(249, 241, 241, 0.9); /* Adicionei transparência */
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative; /* Adicionei para posicionamento absoluto da logo */
+        }
+
+        .logo {
+            width: 80px; /* Reduzi o tamanho da logo */
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            float: left; /* Posiciona a logo no lado direito */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        li {
+            background-color: #fff;
+            margin: 3px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.1s ease;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        li:hover {
+            background-color:rgba(175, 175, 240, 0.897)
+
+        }
+
+        .selected {
+            background-color: rgb(68, 73, 61);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #0a0a0a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="sustentabilidade.png" alt="Logo Sustentabilidade" class="logo">
+        <h1>Oficinas Parceiras</h1>
+        <ul id="oficina-lista">
+            <li onclick="selecionarOficina(this)">BH Motoracing - Endereço: Av. Professor Mário Werneck, 2925 - Belo Horizonte, MG, 30455-610, Telefone: (31) 2552-9002</li>
+            <li onclick="selecionarOficina(this)">Moto Parts Express - Endereço: Dom João VI, 1883 - Belo Horizonte, MG, 30575-460, Telefone: (31) 97141-1391</li>
+            <li onclick="selecionarOficina(this)">Moto Center BH - Endereço: Rua dos Goitacazes, 1872 - Barro Preto, Belo Horizonte, MG, 30190-050, Telefone: (31) 3271-1234</li>
+            <li onclick="selecionarOficina(this)">Moto Service BH - Endereço: Rua Padre Eustáquio, 1000 - Padre Eustáquio, Belo Horizonte, MG, 30720-100, Telefone: (21) 9876-5432</li>
+            <li onclick="selecionarOficina(this)">Moto BH - Endereço: Av. Silva Lobo, 1500 - Grajaú, Belo Horizonte, MG, 30460-000, Telefone: (31) 3344-5566</li>
+            <li onclick="selecionarOficina(this)">Moto BH Center - Endereço: Rua Rio Grande do Sul, 700 - Santo Agostinho, Belo Horizonte, MG, 30170-000, Telefone: (31) 3232-1234</li>
+            <li onclick="selecionarOficina(this)">Moto BH Oficina - Endereço: Av. do Contorno, 8000 - Funcionários, Belo Horizonte, MG, 30110-000, Telefone: (21) 9876-5432</li>
+        </ul>
+        <form id="agendamento-form" method="POST" action="multifuncional.html">
+            <input type="hidden" name="oficina" id="oficina-selecionada">
+            <div class="button-container">
+                <button type="button" onclick="agendarOficina()">Agendar</button>
+                <button type="button" id="monitorar-button" onclick="monitorarOficina()">Monitorar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let oficinaSelecionada = null;
+
+        function selecionarOficina(element) {
+            if (oficinaSelecionada) {
+                oficinaSelecionada.classList.remove('selected');
+            }
+            oficinaSelecionada = element;
+            oficinaSelecionada.classList.add('selected');
+            document.getElementById('oficina-selecionada').value = element.innerText;
+        }
+
+        function agendarOficina() {
+            document.getElementById('agendamento-form').submit();
+        }
+
+        function monitorarOficina() {
+            window.location.href = 'monitorar.html';
+        }
+    </script>
+</body>
+
+</html>
+
+

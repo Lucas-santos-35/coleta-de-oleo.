@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rota de Coleta</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2C2C2C; /* Cinza Escuro */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: #333333; /* Preto um pouco mais claro */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            text-align: center;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+        }
+
+        h1 {
+            color: #E6E6FA; /* Lilás bebê */
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #555555; /* Cinza Médio */
+            text-align: left;
+            color: #FFFFFF; /* Branco */
+        }
+
+        th {
+            background-color: #444444; /* Cinza Escuro */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Espaço entre os botões */
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #5cb85c;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rota de Coleta</h1>
+        <table id="tabela-coleta">
+            <thead>
+                <tr>
+                    <th>Tipo de Serviço</th>
+                    <th>Parceiros</th>
+                    <th>Data</th>
+                    <th>Dia da Semana</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dados serão preenchidos aqui -->
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button onclick="voltarParaMonitorar()">Voltar para Monitorar</button>
+            <button onclick="Relatorio()">Relatório</button>
+            <button onclick="sair()">Sair</button>
+        </div>
+    </div>
+    <script>
+        function Relatorio() {
+            window.location.href = 'relatorio.html';
+        }
+
+        function voltarParaMonitorar() {
+            window.location.href = 'monitorar.html';
+        }
+
+        function sair() {
+            window.location.href = 'index.html';
+        }
+
+        // Função para obter os parâmetros da URL
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.substring(1);
+            const regex = /([^&=]+)=([^&]*)/g;
+            let m;
+            while (m = regex.exec(queryString)) {
+                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+            }
+            return params;
+        }
+
+        // Função para obter o dia da semana a partir da data
+        function getDiaSemana(data) {
+            const dias = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+            const d = new Date(data);
+            return dias[d.getUTCDay()];
+        }
+
+        // Preenche a tabela com os valores dos parâmetros da URL
+        window.onload = function() {
+            const params = getQueryParams();
+            const tbody = document.getElementById('tabela-coleta').getElementsByTagName('tbody')[0];
+            const newRow = tbody.insertRow();
+            newRow.insertCell().textContent = params.servico || '';
+            newRow.insertCell().textContent = params.parceiros || '';
+            newRow.insertCell().textContent = params.data || '';
+            newRow.insertCell().textContent = getDiaSemana(params.data) || '';
+            newRow.insertCell().textContent = params.observacoes || '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios e Análises</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            border-bottom: #77aaff 3px solid;
+            text-align: center;
+        }
+        .main {
+            padding: 20px;
+            background: #fff;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .filters label, .filters input, .filters select, .filters button {
+            flex: 1;
+            min-width: 150px;
+        }
+        .filters button {
+            flex: 0 0 auto;
+            padding: 5px 10px;
+        }
+        .report-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+        .offices-container {
+            flex: 1;
+            max-width: 50%;
+        }
+        .oil-quantity-container {
+            flex: 1;
+            max-width: 50%;
+            padding-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #444;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+        td {
+            background-color: #555;
+            color: #fff;
+        }
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .logout {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .logout button {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .logout button:hover {
+            background-color: darkblue;
+        }
+        .report-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-height: 300px; /* Ajuste da altura */
+            overflow-y: auto; /* Adiciona rolagem se necessário */
+        }
+        .report-container button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .report-container button:hover {
+            background-color: darkgreen;
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+            .filters label, .filters input, .filters select, .filters button {
+                min-width: 100px;
+            }
+            .report-content {
+                flex-direction: column;
+            }
+            .offices-container, .oil-quantity-container {
+                max-width: 100%;
+                padding-left: 0;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Relatórios</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="main">
+            <div class="filters">
+                <label for="date">Data:</label>
+                <input type="date" id="date">
+                <button onclick="generateReport()">Gerar Relatório</button>
+            </div>
+            <div class="report-content">
+                <div class="offices-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Quantidade de Óleo (litros)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Du moto</td>
+                                <td><input type="number" id="Du moto" min="0" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>Bh moto</td>
+                                <td><input type="number" id="Bh moto" min="0" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>Moto Parts Express</td>
+                                <td><input type="number" id="Moto Parts Express" min="0" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>Moto Center BH</td>
+                                <td><input type="number" id="Moto Center BH" min="0" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>Moto Service BH</td>
+                                <td><input type="number" id="Moto Service BH" min="0" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>Moto BH</td>
+                                <td><input type="number" id="Moto BH" min="0" step="0.1"></td>
+                            </tr>
+                            <tr>
+                                <td>moto caicara</td>
+                                <td><input type="number" id="moto caicara" min="0" step="0.1"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="oil-quantity-container">
+                    <div id="report-container" class="report-container" style="display: none;">
+                        <div id="report-results"></div>
+                        <button onclick="generatePDF()">Gerar PDF</button>
+                    </div>
+                </div>
+            </div>
+            <div class="logout">
+                <button onclick="window.location.href='index.html'">Sair</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        
+        function generateReport() {
+            const date = document.getElementById('date').value;
+            const oficinas = ["Du moto", "Bh moto", "Moto Parts Express", "Moto Center BH", "Moto Service BH", "Moto BH", "moto caicara"];
+            let reportContent = `<p>Data: ${date}</p>`;
+            reportContent += `<p>Quantidade de Óleo Retirada:</p><ul>`;
+
+            let totalOleo = 0;
+            oficinas.forEach(oficina => {
+                const quantidadeOleo = parseFloat(document.getElementById(oficina).value) || 0;
+                reportContent += `<li>${oficina}: ${quantidadeOleo} litros</li>`;
+                totalOleo += quantidadeOleo;
+            });
+
+            reportContent += `</ul><p>Total: ${totalOleo} litros</p>`;
+            document.getElementById('report-results').innerHTML = reportContent;
+            document.getElementById('report-container').style.display = 'block';
+        }
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const reportContent = document.getElementById('report-results').innerText;
+            doc.text(reportContent, 10, 10);
+            doc.save('relatorio.pdf');
+        }
+    </script>
+
+
+
+ 
+</body>
+</html>

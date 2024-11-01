@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento de Serviço</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #09090a; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background-color: rgb(47, 43, 43);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #e3dada;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #555;
+            align-self: flex-start;
+        }
+
+        select, input, textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 30%;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: blue;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.1s ease;
+        }
+
+        button[type="button"] {
+            background-color: blue;
+        }
+
+        button:hover {
+            background-color: blue;
+        }
+
+        button[type="button"]:hover {
+            background-color: blue;
+        }
+
+        .mensagem-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agendamento de Serviço</h1>
+        <form id="agendamentoForm" method="post">
+            <label for="servico">Tipo de Serviço:</label>
+            <select id="servico" name="servico" required>
+                <option value="reciclagem">Reciclagem e Rerrefino</option>
+                <option value="descarte">Descarte Consciente</option>
+                <option value="estudo">Estudo Científico</option>
+            </select>
+            <label for="parceiros">Parceiros:</label>
+            <select id="parceiros" name="parceiros" required>
+                <option value="CD">CD Motos</option>
+                <option value="DU">DU Motos</option>
+                <option value="Andradas_motos">Andradas Motos</option>
+                <option value="Anao_motos">Anão Motos</option>
+                <option value="Floresta_motos">Floresta Motos</option>
+                <option value="Joao_motos">João Motos</option>
+                <option value="Jequitinhonha_motos">Jequitinhonha Motos</option>
+            </select>
+            <label for="data">Data:</label>
+            <input type="date" id="data" name="data" required>
+            <label for="observacoes">Observações:</label>
+            <textarea id="observacoes" name="observacoes" rows="4" cols="50" placeholder="Adicione suas observações aqui..."></textarea>
+            <div class="button-container">
+                <button type="submit">Agendar</button>
+                <button type="button" onclick="sair()">Sair</button>
+            </div>
+        </form>
+        <div id="mensagem" class="mensagem-container" style="display: none;">
+            <p>Agendamento realizado com sucesso!</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('agendamentoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const servico = document.getElementById('servico').value;
+            const parceiros = document.getElementById('parceiros').value;
+            const data = document.getElementById('data').value;
+            const observacoes = document.getElementById('observacoes').value;
+
+            function getDiaSemana(data) {
+                const dias = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+                const d = new Date(data);
+                return dias[d.getUTCDay()];
+            }
+
+            const diaSemana = getDiaSemana(data);
+
+            const queryString = `?servico=${encodeURIComponent(servico)}&parceiros=${encodeURIComponent(parceiros)}&data=${encodeURIComponent(data)}&diaSemana=${encodeURIComponent(diaSemana)}&observacoes=${encodeURIComponent(observacoes)}`;
+            window.location.href = 'agendamento_concluido.html' + queryString;
+        });
+
+        function sair() {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento de Barris de Óleos</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2C2C2C; /* Fundo cinza escuro */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px; /* Diminuí o tamanho máximo */
+            background-color: rgba(50, 50, 50, 0.9); /* Fundo cinza escuro */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #E6E6FA; /* Lilás bebê */
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #444444; /* Cinza escuro */
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress {
+            height: 20px;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 20px;
+            color: #FFFFFF; /* Branco */
+        }
+
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oficinas com Barris de Óleo a Coletar</h1>
+        <ul id="oficina-lista">
+            <li onclick="selecionarOficina(this)">
+                BH Motoracing - Endereço: Av. Professor Mário Werneck, 2925 - Belo Horizonte, MG, 30455-610, Telefone: (31) 2552-9002
+                <div class="progress-bar">
+                    <div class="progress" data-capacidade="60" style="width: 60%; background-color: #ffeb3b;">60%</div>
+                </div>
+            </li>
+            <li onclick="selecionarOficina(this)">
+                Moto Parts Express - Endereço: Dom João VI, 1883 - Belo Horizonte, MG, 30575-460, Telefone: (31) 97141-1391
+                <div class="progress-bar">
+                    <div class="progress" data-capacidade="90" style="width: 90%; background-color: #f44336;">90%</div>
+                </div>
+            </li>
+            <li onclick="selecionarOficina(this)">
+                Moto Center BH - Endereço: Rua dos Goitacazes, 1872 - Barro Preto, Belo Horizonte, MG, 30190-050, Telefone: (31) 3271-1234
+                <div class="progress-bar">
+                    <div class="progress" data-capacidade="49" style="width: 49%; background-color: #4caf50;">49%</div>
+                </div>
+            </li>
+            <li onclick="selecionarOficina(this)">
+                Moto Service BH - Endereço: Rua Padre Eustáquio, 1000 - Padre Eustáquio, Belo Horizonte, MG, 30720-100, Telefone: (21) 9876-5432
+                <div class="progress-bar">
+                    <div class="progress" data-capacidade="4" style="width: 4%; background-color: #4caf50;">4%</div>
+                </div>
+            </li>
+            <li onclick="selecionarOficina(this)">
+                Moto BH - Endereço: Av. Silva Lobo, 1500 - Grajaú, Belo Horizonte, MG, 30460-000, Telefone: (31) 3344-5566
+                <div class="progress-bar">
+                    <div class="progress" data-capacidade="75" style="width: 75%; background-color: #ff9800;">75%</div>
+                </div>
+            </li>
+        </ul>
+        <div class="button-container">
+            <button onclick="Relatorio()">Relatório</button>
+            <button onclick="sair()">Sair</button>
+        </div>
+    </div>
+    <script>
+        function Relatorio() {
+            window.location.href = 'relatorio.html';
+        }
+
+        function sair() {
+            window.location.href = 'index.html';
+        }
+
+        function selecionarOficina(element) {
+            // Função para selecionar oficina
+        }
+    </script>
+</body>
+</html>
